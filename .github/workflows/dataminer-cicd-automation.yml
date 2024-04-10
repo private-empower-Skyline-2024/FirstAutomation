@@ -23,29 +23,29 @@ jobs:
       referenceType: ${{ github.ref_type }}
       repository: ${{ github.repository }}
       owner: ${{ github.repository_owner }}
-      sonarCloudProjectName: #TODO: Go to 'https://sonarcloud.io/projects/create' and create a project. Then enter the id of the project as mentioned in the sonarcloud project url here.
+      sonarCloudProjectName: private-empower-Skyline-2024_FirstAutomation
     secrets:
       # The API-key: generated in the DCP Admin app (https://admin.dataminer.services/) as authentication for a certain DataMiner System.
       api-key: ${{ secrets.DATAMINER_DEPLOY_KEY }}
       sonarCloudToken: ${{ secrets.SONAR_TOKEN }}
     
   # # Optional 0 or More CD Jobs as needed
-  # CD:
-  #   if: github.ref_type == 'tag'
-  #   environment: production
-  #   name: CD
-  #   runs-on: ubuntu-latest
-  #   needs: CI
+  CD:
+   #  if: github.ref_type == 'tag'
+     environment: production
+     name: CD
+     runs-on: ubuntu-latest
+     needs: CI
 
-  #   steps:
-  #     - uses: actions/checkout@v4
+     steps:
+       - uses: actions/checkout@v4
 
-  #     - name: Skyline DataMiner Deploy Action
-  #       uses: SkylineCommunications/Skyline-DataMiner-Deploy-Action@v1
-  #       with:
-  #         # Stage deploy
-  #         stage: Deploy
-  #         # The API-key: generated in the DCP Admin app (https://admin.dataminer.services/) as authentication for a certain DataMiner System.
-  #         api-key: ${{ secrets.DATAMINER_DEPLOY_KEY }}
-  #         # Id of the uploaded artifact
-  #         artifact-id: ${{ needs.CI.outputs.artifact-id }}
+       - name: Skyline DataMiner Deploy Action
+         uses: SkylineCommunications/Skyline-DataMiner-Deploy-Action@v1
+         with:
+           # Stage deploy
+           stage: Deploy
+           # The API-key: generated in the DCP Admin app (https://admin.dataminer.services/) as authentication for a certain DataMiner System.
+           api-key: ${{ secrets.DATAMINER_DEPLOY_KEY }}
+           # Id of the uploaded artifact
+           artifact-id: ${{ needs.CI.outputs.artifact-id }}
